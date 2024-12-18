@@ -29,8 +29,8 @@ const workers = [
 //   new TaskModel(19, 70, TaskPriority.HIGH, TaskType.CPU),
 //   new TaskModel(20, 70, TaskPriority.HIGH, TaskType.CPU)
 // ];
-const tasks = generateRandomTasks(20);
-
+const tasks = generateRandomTasks(100);
+console.log(tasks)
 const scheduler = new TaskSchedulerService(workers);
 scheduler.scheduleTasks(tasks)
   .then(result => console.log(result))

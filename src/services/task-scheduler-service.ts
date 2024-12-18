@@ -13,6 +13,7 @@ interface SchedulerMetrics {
   totalTasks: number;
   completedTasks: number;
   failedTasks: number;
+  failedTasksHistory: number;
   avgExecutionTime: number;
   successRate: number;
   workerUtilization: Record<string, number>;
@@ -22,6 +23,7 @@ interface SchedulerResult {
   assignments: Record<string, number[]>;
   results: string[];
   metrics: SchedulerMetrics;
+  workerTaskHistory: Record<string, number[]>;
 }
 
 export class TaskSchedulerService {
@@ -31,13 +33,14 @@ export class TaskSchedulerService {
   private taskQueue: Task[] = [];
   private completedTasks: Task[] = [];
   private failedTasks: Task[] = [];
+  private failedTasksHistory: number = 0;
   private eventEmitter: EventEmitter;
+  private workerTaskHistory: Record<string, number[]> = {};
+
 
   // Configuración ajustable
   private readonly MAX_RETRIES = 3;
   private readonly CACHE_DURATION_MS = 5 * 60 * 1000; // 5 minutes cache validity
-  private readonly BATCH_SIZE = 10;
-  private readonly REQUEUE_DELAY_MS = 500;
 
   constructor(workers: Worker[]) {
     loggerService.info('Initializing TaskSchedulerService', { 
@@ -123,6 +126,7 @@ export class TaskSchedulerService {
         const executionTime = Date.now() - startTime;
         
         if (willFail) {
+          loggerService.error("task rejected")
           reject(new Error(`Task ${task.id} failed`));
         } else {
           resolve({ 
@@ -140,6 +144,7 @@ export class TaskSchedulerService {
   ): Promise<{ result: string, executionTime: number }> {
     for (let attempt = 1; attempt <= this.MAX_RETRIES; attempt++) {
       try {
+        this.logTaskStart(worker,task)
         const result = await this.executeTask(task);
         return result;
       } catch (error) {
@@ -147,11 +152,13 @@ export class TaskSchedulerService {
           workerId: worker.id,
           error: error instanceof Error ? error.message : 'Unknown error'
         });
+        this.failedTasksHistory +=1;
 
         if (attempt === this.MAX_RETRIES) {
           throw error;
         }
-        await new Promise(resolve => setTimeout(resolve, 100 * attempt));
+        //await new Promise(resolve => setTimeout(resolve, 100 * attempt));
+
       }
     }
     throw new Error(`Task ${task.id} failed after ${this.MAX_RETRIES} attempts`);
@@ -195,10 +202,14 @@ export class TaskSchedulerService {
     loggerService.info('Starting task scheduling', { 
       totalTasks: tasks.length 
     });
-
+    
     const startTime = Date.now();
     const assignments: Record<string, number[]> = {};
     const results: string[] = [];
+
+    for (const worker of this.workers) {
+      this.workerTaskHistory[worker.id] = worker.getAssignedTasks();
+    }
 
     // Ordenar tareas por prioridad
     const prioritizedTasks = tasks.sort((a, b) => {
@@ -232,9 +243,10 @@ export class TaskSchedulerService {
           });
 
           resolve({
-            assignments, 
+            assignments,
             results: this.completedTasks.map(task => `Task ${task.id} completed`),
-            metrics
+            metrics,
+            workerTaskHistory: this.workerTaskHistory
           });
         } else {
           // Continuar verificando
@@ -244,6 +256,15 @@ export class TaskSchedulerService {
 
       checkCompletion();
     });
+    
+  }
+
+  getWorkerTaskSummary(): string {
+    const summary = [];
+    for (const workerId in this.workerTaskHistory) {
+      summary.push(`${workerId}: ${this.workerTaskHistory[workerId].join(', ')}`);
+    }
+    return summary.join('\n');
   }
 
   // Métodos existentes (getCacheKey, updateCache, etc.) permanecen igual
@@ -317,6 +338,7 @@ export class TaskSchedulerService {
       totalTasks: tasks.length,
       completedTasks,
       failedTasks,
+      failedTasksHistory: this.failedTasksHistory,
       successRate: completedTasks / tasks.length * 100,
       avgExecutionTime: tasks.reduce((sum, task) => sum + task.cost, 0) / tasks.length,
       workerUtilization

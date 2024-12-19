@@ -1,255 +1,285 @@
-# Task Scheduler
+# Análisis de Eficiencia Técnica por Estrategia de Asignación de Tareas
 
-## Descripción
-Sistema avanzado de scheduling de tareas con soporte para priorización, reintentos y asignación dinámica.
+## Introducción al Problema
 
-## Requisitos Previos
-- Node.js 16+
-- npm 8+
+### Contexto y Desafío
 
-## Instalación
+En el mundo del desarrollo de software y sistemas distribuidos, uno de los desafíos más frecuentes es la distribución eficiente de tareas entre recursos limitados. Este documento describe una solución para el problema de asignar un conjunto de tareas a un número limitado de workers, optimizando el rendimiento total (throughput). Las tareas se caracterizan por un ID, costo (ms), prioridad (alta, media, baja) y tipo (CPU o IO). Los workers tienen una capacidad limitada de ejecución simultánea. La solución considera el manejo de fallos, reintentos y un mecanismo de caché para mejorar la eficiencia. Esta versión implementa la solución en TypeScript. Este problema se vuelve especialmente complejo cuando consideramos variables como:
 
-```bash
-# Clonar repositorio
-git clone https://github.com/tu-usuario/task-scheduler.git
+*   Diferentes tipos de tareas (CPU/IO)
+*   Prioridades variables
+*   Recursos limitados (workers)
+*   Fallos potenciales
+*   Necesidad de optimización continua
 
-# Instalar dependencias
-cd task-scheduler
-npm install
+El sistema debe manejar estas variables mientras mantiene un alto rendimiento y una utilización eficiente de recursos. Es un ejemplo clásico del problema de asignación de recursos en sistemas distribuidos, pero con características específicas que lo hacen único.
+
+### Impacto del Problema
+
+Las implicaciones de una mala solución pueden ser significativas:
+
+*   Tiempos de respuesta lentos
+*   Recursos subutilizados
+*   Tareas críticas retrasadas
+*   Sobrecarga en algunos workers mientras otros están inactivos
+*   Fallos en cascada
+*   Reintentos en casos de fallos
+
+## Análisis de Eficiencia Técnica por Estrategia
+
+Para resolver el problema de asignacio de tares hay varias perpectivas las cuales podemos ver acontinuacion:
+
+### 1. Round Robin (Asignación Circular)
+
+#### Complejidad Temporal
+
+*   **Asignación de tarea:** O(1)
+*   **Ciclo completo:** O(n) donde *n* es el número de workers
+*   **Mantenimiento del estado:** O(1)
+
+#### Complejidad Espacial
+
+*   **Estado del sistema:** O(w) donde *w* es el número de workers
+*   **Cola de tareas:** O(t) donde *t* es el número de tareas pendientes
+
+#### Eficiencia para Diferentes Escalas
+
+*   **Escala Pequeña** (< 100 tareas, < 10 workers)
+    *   Muy eficiente
+    *   Overhead mínimo
+    *   Fácil de depurar
+*   **Escala Media** (100-1000 tareas, 10-50 workers)
+    *   Rendimiento aceptable
+    *   Puede generar desbalances temporales
+*   **Escala Grande** (> 1000 tareas, > 50 workers)
+    *   Puede generar desbalances significativos
+    *   No considera eficientemente la carga real
+
+### 2. Least Load (Menor Carga)
+
+#### Complejidad Temporal
+
+*   **Asignación de tarea:** O(w) donde *w* es el número de workers
+*   **Actualización de estado:** O(1)
+*   **Selección de worker:** O(w log w) con ordenamiento (se podría optimizar a O(w) con una estructura de datos adecuada como un heap o una lista ordenada)
+
+#### Complejidad Espacial
+
+*   **Estado del sistema:** O(w)
+*   **Estructuras de seguimiento:** O(w + t)
+
+#### Eficiencia para Diferentes Escalas
+
+*   **Escala Pequeña**
+    *   Overhead puede superar beneficios
+    *   Excelente distribución de carga
+*   **Escala Media**
+    *   Balance óptimo entre overhead y beneficios
+    *   Mejor distribución que Round Robin
+*   **Escala Grande**
+    *   Overhead significativo en selección de worker
+    *   Requiere optimizaciones adicionales (como caching de estados)
+
+### 3. Random Assignment (Asignación Aleatoria)
+
+#### Complejidad Temporal
+
+*   **Asignación de tarea:** O(1)
+*   **Selección de worker:** O(1)
+*   **Mantenimiento:** O(1)
+
+#### Complejidad Espacial
+
+*   **Estado base:** O(w)
+*   **Sin estructuras adicionales:** O(1)
+
+#### Eficiencia para Diferentes Escalas
+
+*   **Escala Pequeña**
+    *   Alta variabilidad en resultados
+    *   Puede generar distribuciones muy desiguales
+*   **Escala Media**
+    *   Resultados más predecibles
+    *   Distribución estadísticamente más uniforme
+*   **Escala Grande**
+    *   Distribución cercana a uniforme
+    *   Buen rendimiento sin overhead
+
+### 4. Priority-Based (Basado en Prioridades)
+
+#### Complejidad Temporal
+
+*   **Inserción:** O(log n) con cola de prioridad (donde n es el número de tareas en la cola)
+*   **Extracción:** O(log n)
+*   **Actualización de prioridades:** O(log n)
+
+#### Complejidad Espacial
+
+*   **Cola de prioridad:** O(t)
+*   **Estado de workers:** O(w)
+*   **Estructuras de tracking:** O(w + t)
+
+#### Eficiencia para Diferentes Escalas
+
+*   **Escala Pequeña**
+    *   Overhead notable en mantenimiento de estructura
+    *   Beneficios pueden no justificar la complejidad
+*   **Escala Media**
+    *   Balance óptimo entre overhead y beneficios
+    *   Excelente para cargas mixtas
+*   **Escala Grande**
+    *   Escalabilidad limitada por operaciones de cola (se podría considerar un heap binario para optimizar)
+    *   Requiere optimizaciones adicionales
+
+## Comparativa de Eficiencia
+
+| Estrategia    | Ventajas                     | Desventajas                                  | Mejor Escala |
+| ------------- | --------------------------- | -------------------------------------------- | ------------- |
+| Round Robin   | Simple, O(1) asignación       | No considera carga real                       | Pequeña-Media |
+| Least Load    | Mejor distribución           | O(w) selección (mejorable a O(w) con heap)    | Media         |
+| Random        | Mínimo overhead              | Distribución impredecible en escalas pequeñas | Grande        |
+| Priority-Based | Control preciso de prioridades | O(log n) operaciones en la cola de prioridades | Media         |
+
+## Escalabilidad y Optimizaciones
+
+### Mejoras Implementadas
+1. **Sistema de Reintentos**
+   - Máximo 3 intentos por tarea
+   - Backoff exponencial entre intentos
+
+2. **Optimización de Caché**
+   - Almacenamiento de patrones comunes
+   - Reducción de costos en tareas similares
+
+3. **Balance de Carga**
+   - Monitoreo continuo de capacidad
+   - Redistribución dinámica
+
+### Consideraciones Futuras
+1. **Escalado Horizontal**
+   - Adición dinámica de workers
+   - Distribución geográfica
+
+2. **Optimizaciones de Rendimiento**
+   - Predicción de carga
+   - Agrupación de tareas similares
+
+## resultados de ejecución 
+### Para Tomar una decición de que modelo tomar se realiza la implementacion de tres modelos.
+### se realizaron pruebas con las mismas concideraciones de ambiente de ejecucion para todos los modelos
+
+
+### ejecución con 100 tasks y 3 workers 
+
+
+| Estrategia        | Tareas Totales | Tareas Completadas | Tareas Fallidas | Tasa de Éxito | Tiempo Promedio de Ejecución | Tiempo de Ejecución (ms) |
+|-------------------|----------------|--------------------|-----------------|---------------|-----------------------------|--------------------------|
+| Round Robin      | 100            | 100                | 7               | 100%          | 49.03                       | 538                      |
+| Carga Mínima     | 100            | 100                | 15              | 100%          | 49.03                       | 871                      |
+| Asignación Aleat. | 100            | 100                | 8               | 100%          | 49.03                       | 875                      |
+
+### ejecución con 100 tasks y 10 workers 
+
+
+| Estrategia        | Tareas Totales | Tareas Completadas | Tareas Fallidas | Tasa de Éxito | Tiempo Promedio de Ejecución | Tiempo de Ejecución (ms) |
+|-------------------|----------------|--------------------|-----------------|---------------|-----------------------------|--------------------------|
+| Round Robin      | 100            | 100                | 8               | 100%          | 47.72                       | 320                      |
+| Carga Mínima     | 100            | 100                | 15              | 100%          | 47.72                       | 328                      |
+| Asignación Aleat. | 100            | 100                | 8               | 100%          | 47.72                       | 324                      |
+
+### ejecución con 1000 tasks y 100 workers 
+
+
+
+| Estrategia          | Tareas Totales | Tareas Completadas | Tareas Fallidas | Tiempo Promedio de Ejecución (ms) | Tiempo de Ejecución (ms) | Observaciones                                                                                                                                                                                                                                                                                                                      |
+| Estrategia          | Tareas Totales | Tareas Completadas | Tareas Fallidas | Tiempo Promedio de Ejecución (ms) | Tiempo de Ejecución (ms) |
+|-------------------|-------------|-------------------|--------------|--------------------------|-----------------------|
+| Round Robin       | 1000        | 1000              | 110          | 49.921                   | 331                   |
+| Least Load        | 1000        | 1000              | 116          | 49.921                   | 544                   |
+| Random Assignment | 1000        | 1000              | 107          | 49.921                   | 546                   |
+
+## Conclusiones:
+
+*   El factor de fallos puede afectar en los tiempos de ejecución dado que no son contantes.
+*   Round Robin escala de manera excelente. Su tiempo de ejecución se mantiene muy bajo en comparación con las otras estrategias, incluso al aumentar el número de tareas y workers. Esto lo convierte en la opción preferida en todos los casos probados. Ademas podemos observar que Round Robin mantiene una carga de workers pareja.
+*   Least Load no escala bien y tiene una sobrecarga significativa. Su rendimiento empeora en comparación con Round Robin a medida que aumenta el número de tareas, lo que sugiere que el algoritmo de cálculo y gestión de la "carga" introduce una sobrecarga considerable. Los datos con 100 tareas y 10 workers son especialmente reveladores, mostrando una gran diferencia de tiempo de ejecución en contra de Least Load.
+*   Asignación Aleatoria ofrece un buen compromiso entre simplicidad y rendimiento. Si bien no es tan rápido como Round Robin, su rendimiento es aceptable y su implementación es mucho más sencilla que Least Load. Sin embargo, Round Robin lo supera en todos los aspectos.
+*   Con 100 tareas y 10 workers, Round Robin muestra una mejora significativa en el tiempo de ejecución. Esto podría indicar que Round Robin se beneficia especialmente de una proporción de tareas/workers más baja.
+
+**Recomendaciones:**
+
+*   Usar Round Robin como estrategia predeterminada. Los datos muestran consistentemente su superioridad en todos los casos probados.
+*   No usar Least Load en su implementación actual. Requiere una revisión y optimización profunda.
+*   Considerar Asignación Aleatoria solo si la simplicidad de implementación es una prioridad absoluta y las diferencias de rendimiento con Round Robin son aceptables en el contexto específico. Sin embargo, dado el buen rendimiento de Round Robin y su simplicidad relativa, generalmente no hay una razón convincente para elegir Asignación Aleatoria.
+
+**Nota importante:** Los resultados presentados fueron obtenidos en un equipo específico y por lo tanto, pueden variar en otros entornos.
+
+
+
+## Requisitos Previos tecnicos 
+- Node.js 20+
+- npm 10.8+
+- TypeScript
+  
+## Estructura del Proyecto
 ```
-
+/
+├── src/
+│   ├── interfaces/
+│   │   └── scheduler.interfaces.ts
+│   ├── models/
+│   │   ├── task.model.ts
+│   │   └── worker.model.ts
+│   ├── interfaces/
+│   │   └── scheduler.interfaces.ts
+│   ├── schedulers/
+│   │   ├── base-scheduler.ts
+│   │   ├── round-robin-scheduler.ts
+│   │   ├── least-load-scheduler.ts
+│   │   └── random-scheduler.ts
+│   ├── services/
+│   │   ├── scheduler-comparator.ts
+│   |   └── task-scheduler-service.ts   
+│   ├── utils/
+│   │   ├── task-generator.ts
+│   |   ├── worker-generator.ts
+│   |   └── logger.ts
+│   └── index.ts
+├── test/
+│   ├── jest.setup.ts
+│   ├── models/
+│   │   ├── task.model.test.ts
+│   │   └── worker.model.test.ts
+│   ├── schedulers/
+│   │   ├── base-scheduler.test.ts
+│   │   ├── round-robin-scheduler.test.ts
+│   │   ├── least-load-scheduler.test.ts
+│   │   └── random-scheduler.test.ts
+│   ├── services/
+│   │   ├── scheduler-comparator.test.ts
+│   │   └── task-scheduler-service.test.ts
+│   └── utils/
+│       ├── task-generator.test.ts
+│       └── worker-generator.test.ts
+├── .gitignore
+├── readme-md.md
+├── package-lock.json
+├── package.json
+├── tsconfig.build.json
+└── tsconfig.json
+```
 ## Scripts Disponibles
 
-- `npm start`: Ejecuta la aplicación
-- `npm run dev`: Modo desarrollo con recarga automática
-- `npm test`: Ejecuta pruebas unitarias
-- `npm run build`: Compila TypeScript a JavaScript
-- `npm run lint`: Verifica código con ESLint
-
-## Ejecución de Ejemplo
-
-```typescript
-import { TaskSchedulerService } from './services/task-scheduler.service';
-import { TaskModel, TaskPriority, TaskType } from './models/task.model';
-
-const workers = [
-  { id: 'worker1', capacity: 3 },
-  { id: 'worker2', capacity: 3 },
-  { id: 'worker3', capacity: 3 },
-];
-
-const tasks = [
-  new TaskModel(1, 50, TaskPriority.HIGH, TaskType.CPU),
-  new TaskModel(2, 30, TaskPriority.MEDIUM, TaskType.IO),
-  new TaskModel(3, 70, TaskPriority.HIGH, TaskType.CPU)
-];
-
-const scheduler = new TaskSchedulerService(workers);
-scheduler.scheduleTasks(tasks)
-  .then(result => console.log(result))
-  .catch(error => console.error(error));
+```bash
+npm start           # Ejecuta la aplicación
+npm run dev         # Modo desarrollo con recarga automática
+npm test            # Ejecuta pruebas unitarias
+npm test:watch      # Ejecuta pruebas unitarias
+npm test:coverage   # Ejecuta pruebas unitarias
+npm run build       # Compila TypeScript a JavaScript
+npm run lint        # Verifica código con ESLint
 ```
 
-## Estrategia de Scheduling
-- Priorización de tareas (HIGH > MEDIUM > LOW)
-- Máximo 3 reintentos por tarea
-- Asignación dinámica de workers
-- Manejo de fallos transitorios
-
-## Consideraciones de Escalabilidad
-- Logging centralizado
-- Gestión de errores
-- Diseño modular para fácil extensión
-
-## Contribuciones
-Por favor, lee CONTRIBUTING.md para detalles sobre nuestro código de conducta.
 
 ## Licencia
 MIT
-```
-
-## Pasos de Implementación
-
-1. **Preparación del Proyecto**
-```bash
-mkdir task-scheduler
-cd task-scheduler
-npm init -y
-npm install typescript ts-node @types/node --save-dev
-npx tsc --init
-```
-
-2. **Instalación de Dependencias**
-```bash
-npm install winston jest ts-jest @types/jest eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
-npm install --save-dev husky
-npx husky install
-```
-
-3. **Configuración Git**
-```bash
-git init
-echo "node_modules/" > .gitignore
-git add .
-git commit -m "Configuración inicial del proyecto"
-```
-
-4. **Ejecutar Tests**
-```bash
-npm test
-```
-
-## Puntos Importantes
-- Arquitectura modular
-- Alta cobertura de tests
-- Logging robusto
-- Manejo de errores
-- Flexibilidad de scheduling
-
-¿Te gustaría que profundice en algún aspecto específico de la implementación?
-
-
-## Asignación de Tareas: Un Enfoque Visual
-
-### Introducción
-
-La asignación de tareas es un proceso fundamental en cualquier organización. Un método visual puede facilitar la comprensión y gestión de las tareas.
-
-### Diagrama de Flujo de un Proceso Típico de Asignación
-
-[Image of a flowchart showing the process of task assignment, from creation to completion]
-
-### Tabla Comparativa de Métodos
-
-| Método | Ventajas | Desventajas | Mejor para |
-|---|---|---|---|
-| **Asignación directa** | Simple, rápido | Puede ser subjetivo, desequilibrado | Proyectos pequeños, equipos pequeños |
-| **Programación lineal** | Óptima, flexible | Requiere formulación matemática | Proyectos grandes con restricciones complejas |
-| **Algoritmos genéticos** | Adaptable a problemas complejos | Puede ser computacionalmente costoso | Problemas de optimización altamente complejos |
-
-
-## Análisis del Código: Servicio de Programación de Tareas
-
-### Descripción General
-El código proporcionado implementa un servicio de programación de tareas que asigna dinámicamente tareas a trabajadores, teniendo en cuenta varios factores como la capacidad de los trabajadores, la prioridad de las tareas y el historial de ejecución.
-
-### Características Principales
-* **Asignación dinámica:** Las tareas se asignan a los trabajadores en tiempo real, considerando la carga de trabajo actual de cada uno.
-* **Priorización de tareas:** Las tareas se ordenan según su prioridad (alta, media, baja).
-* **Caché de tareas:** Se almacena información sobre el tiempo de ejecución de tareas anteriores para optimizar futuras asignaciones.
-* **Gestión de errores:** Se implementa un mecanismo de reintento para tareas fallidas.
-* **Métricas detalladas:** Se calculan métricas como el tiempo promedio de ejecución, la tasa de éxito y la utilización de los trabajadores.
-
-### Diagrama de Flujo Simplificado
-
-```mermaid
-graph LR
-A[Tarea agregada a la cola] --> B{Seleccionar trabajador disponible}
-B --> C{¿Hay trabajadores disponibles?}
-C -- No --> D(Fin)
-C -- Sí --> E{Asignar tarea a trabajador}
-E --> F{Ejecutar tarea}
-F -- Éxito --> G{Actualizar métricas y caché}
-G --> A
-F -- Fracaso --> H{Reintentar o mover a cola de fallos}
-H --> A
-```
-
-
-# Asignación de Tareas a Workers: Un Enfoque Optimizado (TypeScript)
-
-## Introducción
-
-Este documento describe una solución para el problema de asignar un conjunto de tareas a un número limitado de workers, optimizando el rendimiento total (throughput). Las tareas se caracterizan por un ID, costo (ms), prioridad (alta, media, baja) y tipo (CPU o IO). Los workers tienen una capacidad limitada de ejecución simultánea. La solución considera el manejo de fallos, reintentos y un mecanismo de caché para mejorar la eficiencia. Esta versión implementa la solución en TypeScript.
-
-## Propuesta de Solución
-
-1.  **Priorización:** Las tareas se ordenan según su prioridad (alta > media > baja). Dentro de la misma prioridad, se priorizan las tareas de tipo CPU sobre las de tipo IO.
-2.  **Asignación Dinámica:** Se asignan tareas a los workers disponibles en tiempo real.
-3.  **Manejo de Fallos:** Se implementa un mecanismo de reintento.
-4.  **Caché:** Se utiliza un caché para almacenar los resultados.
-
-## Algoritmo `scheduleTasks` (TypeScript)
-
-```typescript
-interface Task {
-    id: number;
-    costo: number;
-    prioridad: "high" | "medium" | "low";
-    tipo: "CPU" | "IO";
-}
-
-interface Worker {
-    capacidad: number;
-}
-
-async function executeTask(task: Task): Promise<any> {
-  // Simula la ejecución de una tarea.
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (Math.random() < 0.2) { // Simula un 20% de probabilidad de fallo
-        reject(new Error(`Tarea ${task.id} falló`));
-      } else {
-        resolve(`Resultado de la tarea ${task.id}`);
-      }
-    }, task.costo);
-  });
-}
-
-async function scheduleTasks(tasks: Task[], workers: Worker[], maxRetries: number = 3): Promise<void> {
-    const cache = new Map<string, any>(); // Caché: {(tipo, prioridad): resultado}
-    const taskQueue = [...tasks].sort((a, b) => {
-        const prioridadOrden = { "high": 0, "medium": 1, "low": 2 };
-        return prioridadOrden[a.prioridad] - prioridadOrden[b.prioridad] || (a.tipo === "CPU" ? -1 : 1);
-    });
-
-    const workerStates = workers.map(() => ({ ocupado: 0 }));
-
-    while (taskQueue.length > 0) {
-        for (let i = 0; i < workers.length; i++) {
-            if (workerStates[i].ocupado < workers[i].capacidad) {
-                if (taskQueue.length > 0) {
-                    const task = taskQueue.shift()!;
-
-                    const cacheKey = `${task.tipo}-${task.prioridad}`;
-                    if (cache.has(cacheKey)) {
-                        task.costo *= 0.5; // Reducir el costo si está en caché
-                    }
-
-                    for (let attempt = 0; attempt < maxRetries; attempt++) {
-                        try {
-                            const resultado = await executeTask(task);
-                            cache.set(cacheKey, resultado);
-                            workerStates[i].ocupado++;
-                            break; // Salir del bucle de reintentos si la tarea se completa
-                        } catch (error: any) {
-                            console.error(`Error en la tarea ${task.id}: ${error.message}, Intento ${attempt + 1}`);
-                            if (attempt === maxRetries - 1) {
-                                console.error(`Fallo definitivo en la tarea ${task.id}`);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        //simula la ejecucion en paralelo de las tareas
-        for (let i = 0; i < workerStates.length; i++) {
-          workerStates[i].ocupado = Math.max(0,workerStates[i].ocupado - 1)
-        }
-    }
-}
-
-// Ejemplo de uso
-const tareas: Task[] = [
-    { id: 1, costo: 100, prioridad: "high", tipo: "CPU" },
-    { id: 2, costo: 200, prioridad: "medium", tipo: "IO" },
-    { id: 3, costo: 150, prioridad: "low", tipo: "CPU" },
-    { id: 4, costo: 100, prioridad: "high", tipo: "IO" },
-    { id: 5, costo: 200, prioridad: "medium", tipo: "CPU" }
-];
-
-const workersEjemplo: Worker[] = [{ capacidad: 2 }, { capacidad: 1 }];
-
-scheduleTasks(tareas, workersEjemplo).then(() => {
-  console.log("Planificación completada");
-});

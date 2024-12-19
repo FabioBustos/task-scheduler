@@ -18,10 +18,8 @@ const colors = {
   debug: 'blue',
 };
 
-// Configurar colores para winston
-winston.addColors(colors);
+if (winston?.addColors) { winston.addColors(colors); }
 
-// Formato de logs
 const logFormat = winston.format.combine(
   winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
   winston.format.colorize({ all: true }),
@@ -30,69 +28,16 @@ const logFormat = winston.format.combine(
   )
 );
 
-// Configuración de transports
 const transports = [
-  // Consola
-  new winston.transports.Console({
-    format: logFormat,
-    level: 'debug'
-  }),
-  
-  // Archivo de errores
-  new winston.transports.File({
-    filename: path.join(__dirname, '../../logs/error.log'),
-    level: 'error',
-    format: winston.format.combine(
-      winston.format.uncolorize(),
-      winston.format.json()
-    )
-  }),
-  
-  // Archivo de logs combinados
-  new winston.transports.File({
-    filename: path.join(__dirname, '../../logs/combined.log'),
-    level: 'info',
-    format: winston.format.combine(
-      winston.format.uncolorize(),
-      winston.format.json()
-    )
-  })
+  new winston.transports.Console(),
+  new winston.transports.File({ filename: path.join(__dirname, '../../logs/error.log'), level: 'error' }),
+  new winston.transports.File({ filename: path.join(__dirname, '../../logs/combined.log') })
 ];
 
-// Crear logger
-const logger = winston.createLogger({
-  level: 'debug',
+const loggerService = winston.createLogger({
   levels,
-  transports
+  format: logFormat,
+  transports,
 });
 
-// Extensión de logger con métodos de traza
-export const loggerService = {
-  error: (message: string, meta?: any) => logger.error(message, meta),
-  warn: (message: string, meta?: any) => logger.warn(message, meta),
-  info: (message: string, meta?: any) => logger.info(message, meta),
-  http: (message: string, meta?: any) => logger.http(message, meta),
-  debug: (message: string, meta?: any) => logger.debug(message, meta),
-  
-  // Método para trazar ejecución de tareas
-  traceTaskExecution: (task: any, status: string, additionalInfo?: any) => {
-    logger.info(`Task Execution: ID ${task.id} - Status: ${status}`, {
-      taskId: task.id,
-      type: task.type,
-      priority: task.priority,
-      status,
-      ...additionalInfo
-    });
-  },
-
-  // Método para trazar asignación de workers
-  traceWorkerAssignment: (task: any, worker: any) => {
-    logger.debug(`Worker Assignment: Task ${task.id} assigned to ${worker.id}`, {
-      taskId: task.id,
-      workerId: worker.id,
-      workerCapacity: worker.capacity
-    });
-  }
-};
-
-export default logger;
+export { loggerService };

@@ -125,7 +125,7 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
     *   Gastos administrativos notable en mantenimiento de estructura
     *   Beneficios pueden no justificar la complejidad
 *   **Escala media**
-    *   Balance óptimo entre Gastos administrativos y beneficios
+    *   Balance óptimo entre gastos administrativos y beneficios
     *   Excelente para cargas mixtas
 *   **Escala grande**
     *   Escalabilidad limitada por operaciones de cola 
@@ -137,7 +137,7 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 | ------------- | --------------------------- | -------------------------------------------- | ------------- |
 | Round Robin   | Simple, O(1) asignación       | No considera carga real                       | Pequeña-Media |
 | Least Load    | Mejor distribución           | O(w) selección (mejorable a O(w) con heap)    | Media         |
-| Random        | Mínimo Gastos administrativos| Distribución impredecible en escalas pequeñas | Grande        |
+| Random        | Mínimo gastos administrativos| Distribución impredecible en escalas pequeñas | Grande        |
 | Priority-Based | Control preciso de prioridades | O(log n) operaciones en la cola de prioridades | Media         |
 
 ## Escalabilidad y optimizaciones

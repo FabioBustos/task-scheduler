@@ -1,4 +1,59 @@
 # Análisis de eficiencia técnica por estrategia de asignación de tareas
+    1. [Introducción al problema](#1-introducción-al-problema)
+   - [Contexto y desafío](#contexto-y-desafío)
+   - [Impacto del problema](#impacto-del-problema)
+
+2. [Aspectos históricos](#2-aspectos-históricos-del-análisis-de-eficiencia-técnica-por-estrategia-de-asignación-de-tareas)
+   - [Orígenes (1960-1970)](#1-orígenes-gestión-de-recursos-en-sistemas-monolíticos-década-de-1960-1970)
+   - [Sistemas multitarea (1980)](#2-sistemas-multitarea-y-distribuidos-década-de-1980)
+   - [Modelos algorítmicos (1990)](#3-desarrollo-de-modelos-algorítmicos-década-de-1990)
+   - [Era de internet (2000)](#4-era-de-internet-y-computación-distribuida-global-década-de-2000)
+   - [Computación en la nube (2010)](#5-computación-en-la-nube-y-microservicios-década-de-2010)
+   - [IA y Machine Learning (2020)](#6-inteligencia-artificial-y-machine-learning-década-de-2020)
+
+3. [Análisis de eficiencia técnica por estrategia](#3-análisis-de-eficiencia-técnica-por-estrategia)
+   - [Round Robin](#1-round-robin-asignación-circular)
+     - [Complejidad temporal](#complejidad-temporal)
+     - [Complejidad espacial](#complejidad-espacial)
+     - [Eficiencia para diferentes escalas](#eficiencia-para-diferentes-escalas)
+   - [Least Load](#2-least-load-menor-carga)
+     - [Complejidad temporal](#complejidad-temporal-1)
+     - [Complejidad espacial](#complejidad-espacial-1)
+     - [Eficiencia para diferentes escalas](#eficiencia-para-diferentes-escalas-1)
+   - [Random Assignment](#3-random-assignment-asignación-aleatoria)
+     - [Complejidad temporal](#complejidad-temporal-2)
+     - [Complejidad espacial](#complejidad-espacial-2)
+     - [Eficiencia para diferentes escalas](#eficiencia-para-diferentes-escalas-2)
+   - [Priority-Based](#4-priority-based-basado-en-prioridades)
+     - [Complejidad temporal](#complejidad-temporal-3)
+     - [Complejidad espacial](#complejidad-espacial-3)
+     - [Eficiencia para diferentes escalas](#eficiencia-para-diferentes-escalas-3)
+
+4. [Comparativa de eficiencia](#4-comparativa-de-eficiencia)
+
+5. [Escalabilidad y optimizaciones](#5-escalabilidad-y-optimizaciones)
+   - [Mejoras implementadas](#mejoras-implementadas)
+     - [Sistema de reintentos](#sistema-de-reintentos)
+     - [Optimización de caché](#optimización-de-caché)
+     - [Balance de carga](#balance-de-carga)
+   - [Consideraciones futuras](#consideraciones-futuras)
+     - [Escalado Horizontal](#escalado-horizontal)
+     - [Optimizaciones de rendimiento](#optimizaciones-de-rendimiento)
+
+6. [Resultados de ejecución](#6-resultados-de-ejecución)
+   - [Ejecución con 100 tareas y 3 trabajadores](#ejecución-con-100-tareas-y-3-trabajadores)
+   - [Ejecución con 100 tareas y 10 trabajadores](#ejecución-con-100-tareas-y-10-trabajadores)
+   - [Ejecución con 1000 tareas y 100 trabajadores](#ejecución-con-1000-tareas-y-100-trabajadores)
+
+7. [Conclusiones](#7-conclusiones)
+   - [Recomendaciones](#recomendaciones)
+
+8. [Requisitos previos técnico](#8-requisitos-previos-técnico)
+
+9. [Estructura del proyecto](#9-estructura-del-proyecto)
+
+10. [Scripts disponibles](#10-scripts-disponibles)
+
     
 ## 1. Introducción al problema
 
@@ -24,6 +79,8 @@
    *   Sobrecarga en algunos trabajadores mientras otros están inactivos
    *   Fallos en cascada
    *   Reintentos en casos de fallos
+
+
 
 ## 2. Aspectos históricos del análisis de eficiencia técnica por estrategia de asignación de tareas
 El análisis de eficiencia técnica por estrategia de asignación de tareas tiene sus raíces en la necesidad de optimizar la asignación de recursos en sistemas computacionales y distribuidos. Este campo ha evolucionado significativamente con el avance de las tecnologías, y su historia puede rastrearse a través de varias etapas clave:
@@ -177,6 +234,8 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
     *   Escalabilidad limitada por operaciones de cola 
     *   Requiere optimizaciones adicionales
 
+
+
 ## 4. Comparativa de eficiencia
 
 | Estrategia    | Ventajas                     | Desventajas                                  | Mejor Escala |
@@ -210,6 +269,8 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
    - Predicción de carga
    - Agrupación de tareas similares
 
+
+
 ## 6. Resultados de ejecución 
 ### Para tomar una decisión de que modelo tomar se realiza la implementacion de tres modelos.
 ### se realizaron pruebas con las mismas consideraciones de ambiente de ejecución para todos los modelos.
@@ -242,6 +303,8 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 | Carga Mínima      | 1000        | 1000              | 116          | 49.921                   | 544                   |
 | Asignación Aleateorea | 1000        | 1000              | 107          | 49.921                   | 546                   |
 
+
+
 ## 7. Conclusiones:
 
 *   El factor de fallos puede afectar en los tiempos de ejecución dado que no son constantes.
@@ -264,6 +327,8 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 - Node.js 20+
 - npm 10.8+
 - TypeScript
+
+
   
 ## 9. Estructura del proyecto
 ```
@@ -312,6 +377,8 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 ├── tsconfig.build.json
 └── tsconfig.json
 ```
+
+
 ## 10. Scripts disponibles
 
 ```bash

@@ -1,3 +1,44 @@
+# Índice
+
+1. [Introducción al problema](#introducción-al-problema)  
+   1.1. [Contexto y desafío](#contexto-y-desafío)  
+   1.2. [Impacto del problema](#impacto-del-problema)  
+
+2. [Aspectos históricos del análisis de eficiencia técnica por estrategia de asignación de tareas](#aspectos-históricos-del-análisis-de-eficiencia-técnica-por-estrategia-de-asignación-de-tareas)  
+   2.1. [Orígenes: Gestión de recursos en sistemas monolíticos](#orígenes-gestión-de-recursos-en-sistemas-monolíticos-década-de-1960-1970)  
+   2.2. [Sistemas multitarea y distribuidos](#sistemas-multitarea-y-distribuidos-década-de-1980)  
+   2.3. [Desarrollo de modelos algorítmicos](#desarrollo-de-modelos-algorítmicos-década-de-1990)  
+   2.4. [Era de internet y computación distribuida global](#era-de-internet-y-computación-distribuida-global-década-de-2000)  
+   2.5. [Computación en la nube y microservicios](#computación-en-la-nube-y-microservicios-década-de-2010)  
+   2.6. [Inteligencia artificial y machine learning](#inteligencia-artificial-y-machine-learning-década-de-2020)  
+
+3. [Análisis de eficiencia técnica por estrategia](#análisis-de-eficiencia-técnica-por-estrategia)  
+   3.1. [Round Robin (asignación circular)](#1-round-robin-asignación-circular)  
+   3.2. [Least Load (Menor carga)](#2-least-load-menor-carga)  
+   3.3. [Random Assignment (Asignación Aleatoria)](#3-random-assignment-asignación-aleatoria)  
+   3.4. [Priority-Based (Basado en Prioridades)](#4-priority-based-basado-en-prioridades)  
+
+4. [Comparativa de eficiencia](#comparativa-de-eficiencia)  
+
+5. [Escalabilidad y optimizaciones](#escalabilidad-y-optimizaciones)  
+   5.1. [Mejoras implementadas](#mejoras-implementadas)  
+   5.2. [Consideraciones futuras](#consideraciones-futuras)  
+
+6. [Resultados de ejecución](#resultados-de-ejecución)  
+   6.1. [Ejecución con 100 tareas y 3 trabajadores](#ejecución-con-100-tareas-y-3-trabajadores)  
+   6.2. [Ejecución con 100 tareas y 10 trabajadores](#ejecución-con-100-tareas-y-10-trabajadores)  
+   6.3. [Ejecución con 1000 tareas y 100 trabajadores](#ejecución-con-1000-tareas-y-100-trabajadores)  
+
+7. [Conclusiones](#conclusiones)  
+
+8. [Requisitos previos técnicos](#requisitos-previos-técnicos)  
+
+9. [Estructura del proyecto](#estructura-del-proyecto)  
+
+10. [Scripts disponibles](#scripts-disponibles)  
+
+11. [Licencia](#licencia)  
+    
 # Análisis de eficiencia técnica por estrategia de asignación de tareas
 
 ## Introducción al problema
@@ -25,16 +66,16 @@ Las implicaciones de una mala solución pueden ser significativas:
 *   Fallos en cascada
 *   Reintentos en casos de fallos
 
-# Aspectos históricos del análisis de eficiencia técnica por estrategia de asignación de tareas
+## Aspectos históricos del análisis de eficiencia técnica por estrategia de asignación de tareas
 El análisis de eficiencia técnica por estrategia de asignación de tareas tiene sus raíces en la necesidad de optimizar la asignación de recursos en sistemas computacionales y distribuidos. Este campo ha evolucionado significativamente con el avance de las tecnologías, y su historia puede rastrearse a través de varias etapas clave:
 
-## 1. Orígenes: Gestión de recursos en sistemas monolíticos (Década de 1960-1970)
+### 1. Orígenes: Gestión de recursos en sistemas monolíticos (Década de 1960-1970)
 
 - **Sistemas monolíticos:** Los primeros sistemas computacionales, como el IBM System/360, se enfocaban en optimizar el uso de recursos limitados, como el tiempo de CPU y la memoria.
 - **Algoritmos básicos:** Se introdujeron algoritmos de planificación simples, como **First Come, First Serve (FCFS)**, **Round Robin**, y **Shortest Job Next**, para distribuir el tiempo de CPU entre procesos.
 - **Objetivo inicial:** Reducir el tiempo de respuesta de las tareas y mejorar la utilización de los recursos dentro de una máquina centralizada.
 
-## 2. Sistemas multitarea y distribuidos (Década de 1980)
+### 2. Sistemas multitarea y distribuidos (Década de 1980)
 
 - **Aparición de sistemas distribuidos:** La capacidad de conectar varias máquinas mediante redes (como Ethernet) introdujo nuevos desafíos para asignar tareas entre múltiples nodos.
 - **Estrategias primitivas de distribución:**
@@ -42,7 +83,7 @@ El análisis de eficiencia técnica por estrategia de asignación de tareas tien
   - Algoritmos basados en **colas priorizadas** surgieron para manejar tareas críticas.
 - **Enfoque en eficiencia:** Los investigadores comenzaron a analizar el impacto de las estrategias de asignación en la eficiencia y en la capacidad de respuesta de sistemas multitarea.
 
-## 3. Desarrollo de modelos algorítmicos (Década de 1990)
+### 3. Desarrollo de modelos algorítmicos (Década de 1990)
 
 - **Tareas heterogéneas:** La aparición de aplicaciones con diferentes necesidades de recursos (CPU intensivas vs. I/O intensivas) motivó el desarrollo de algoritmos como **Least Load** y variantes optimizadas.
 - **Introducción del análisis teórico:**
@@ -50,7 +91,7 @@ El análisis de eficiencia técnica por estrategia de asignación de tareas tien
   - Investigadores como **Michael Garey** y **David Johnson** desarrollaron modelos teóricos relacionados con problemas **NP-completos**, aplicables a la asignación de tareas.
 - **Sistemas distribuidos comerciales:** Las empresas comenzaron a implementar técnicas de asignación en sistemas como **clústeres de servidores**.
 
-## 4. Era de internet y computación distribuida global (Década de 2000)
+### 4. Era de internet y computación distribuida global (Década de 2000)
 
 - **Auge de aplicaciones web:** La explosión del tráfico en Internet impulsó el desarrollo de sistemas más complejos para manejar tareas distribuidas.
 - **Implementaciones prácticas:**
@@ -58,37 +99,37 @@ El análisis de eficiencia técnica por estrategia de asignación de tareas tien
   - Algoritmos basados en **estadísticas** comenzaron a ser utilizados para predecir patrones de carga.
 - **Enfoque en escalabilidad:** La necesidad de manejar un crecimiento exponencial en la cantidad de tareas y recursos llevó a la evaluación de estrategias para entornos grandes y dinámicos.
 
-## 5. Computación en la nube y microservicios (Década de 2010)
+### 5. Computación en la nube y microservicios (Década de 2010)
 
 - **Asignación dinámica:** Con la computación en la nube, surgieron estrategias adaptativas para asignar tareas basadas en la carga en tiempo real.
 - **Entornos heterogéneos:** Los sistemas ahora incluyen **contenedores** y **microservicios**, que requieren estrategias de asignación más complejas.
 - **Herramientas modernas:** **Kubernetes** y otros orquestadores introdujeron mecanismos como el balanceo de carga automático basado en estrategias como **Round Robin** y **Least Load**.
 - **Análisis automatizado:** Se comenzaron a usar simulaciones y técnicas basadas en **inteligencia artificial** para evaluar la eficiencia técnica de diferentes estrategias.
 
-## 6. Inteligencia artificial y machine learning (Década de 2020)
+### 6. Inteligencia artificial y machine learning (Década de 2020)
 
 - **Análisis predictivo:** Los algoritmos de **aprendizaje automático** comenzaron a utilizarse para evaluar y seleccionar dinámicamente estrategias de asignación según las condiciones del sistema.
 - **Optimización continua:** Los sistemas modernos ahora ajustan las estrategias de asignación en tiempo real basándose en métricas como el rendimiento y la disponibilidad de recursos.
 - **Eficiencia energética:** Además de la eficiencia técnica, se incorporaron objetivos relacionados con el **ahorro energético** y la sostenibilidad en las estrategias de asignación.
 
-## Análisis de eficiencia técnica por estrategia
+# Análisis de eficiencia técnica por estrategia
 
 Para resolver el problema de asignación de tareas hay varias perpectivas las cuales podemos ver a continuación:
 
-### 1. Round Robin (asignación circular)
+## 1. Round Robin (asignación circular)
 
-#### Complejidad temporal
+### Complejidad temporal
 
 *   **Asignación de tarea:** O(1)
 *   **Ciclo completo:** O(n) donde *n* es el número de trabajadores
 *   **Mantenimiento del estado:** O(1)
 
-#### Complejidad espacial
+### Complejidad espacial
 
 *   **Estado del sistema:** O(w) donde *w* es el número de trabajadores
 *   **Cola de tareas:** O(t) donde *t* es el número de tareas pendientes
 
-#### Eficiencia para diferentes escalas
+### Eficiencia para diferentes escalas
 
 *   **Escala pequeña** (< 100 tareas, < 10 trabajadores)
     *   Muy eficiente
@@ -101,20 +142,20 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
     *   Puede generar desbalances significativos
     *   No considera eficientemente la carga real
 
-### 2. Least Load (Menor carga)
+## 2. Least Load (Menor carga)
 
-#### Complejidad temporal
+### Complejidad temporal
 
 *   **Asignación de tarea:** O(w) donde *w* es el número de trabajadores
 *   **Actualización de estado:** O(1)
 *   **Selección de trebajador:** O(w log w) con ordenamiento (se podría optimizar a O(w) con una estructura de datos adecuada como un heap o una lista ordenada)
 
-#### Complejidad espacial
+### Complejidad espacial
 
 *   **Estado del sistema:** O(w)
 *   **Estructuras de seguimiento:** O(w + t)
 
-#### Eficiencia para diferentes escalas
+### Eficiencia para diferentes escalas
 
 *   **Escala Pequeña**
     *   Gastos administrativos puede superar el beneficios
@@ -126,20 +167,20 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
     *   Gastos administrativos significativo en selección de trebajador
     *   Requiere optimizaciones adicionales (como almacenamiento en caché de estados)
 
-### 3. Random Assignment (Asignación Aleatoria)
+## 3. Random Assignment (Asignación Aleatoria)
 
-#### Complejidad temporal
+### Complejidad temporal
 
 *   **Asignación de tarea:** O(1)
 *   **Selección de trebajador:** O(1)
 *   **Mantenimiento:** O(1)
 
-#### Complejidad espacial
+### Complejidad espacial
 
 *   **Estado base:** O(w)
 *   **Sin estructuras adicionales:** O(1)
 
-#### Eficiencia para diferentes escalas
+### Eficiencia para diferentes escalas
 
 *   **Escala pequeña**
     *   Alta variabilidad en resultados
@@ -151,21 +192,21 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
     *   Distribución cercana a uniforme
     *   Buen rendimiento sin gastos administrativos
 
-### 4. Priority-Based (Basado en Prioridades)
+## 4. Priority-Based (Basado en Prioridades)
 
-#### Complejidad temporal
+### Complejidad temporal
 
 *   **Inserción:** O(log n) con cola de prioridad (donde n es el número de tareas en la cola)
 *   **Extracción:** O(log n)
 *   **Actualización de prioridades:** O(log n)
 
-#### Complejidad espacial
+### Complejidad espacial
 
 *   **Cola de prioridad:** O(t)
 *   **Estado de trabajadores:** O(w)
 *   **Estructuras de tracking:** O(w + t)
 
-#### Eficiencia para diferentes escalas
+### Eficiencia para diferentes escalas
 
 *   **Escala pequeña**
     *   Gastos administrativos notable en mantenimiento de estructura

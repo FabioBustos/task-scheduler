@@ -71,7 +71,7 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 #### Eficiencia para diferentes escalas
 
 *   **Escala Pequeña**
-    *   Gastos administrativos puede superar beneficios
+    *   Gastos administrativos puede superar el beneficios
     *   Excelente distribución de carga
 *   **Escala Media**
     *   Balance óptimo entre gastos administrativos y beneficios

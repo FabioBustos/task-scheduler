@@ -1,5 +1,8 @@
 # Análisis de eficiencia técnica por estrategia de asignación de tareas
-    1. [Introducción al problema](#1-introducción-al-problema)
+
+## indice 
+
+1. [Introducción al problema](#1-introducción-al-problema)
    - [Contexto y desafío](#contexto-y-desafío)
    - [Impacto del problema](#impacto-del-problema)
 

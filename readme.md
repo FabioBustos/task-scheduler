@@ -1,4 +1,4 @@
-# Análisis de eficiencia técnica de estrategia de asignación de tareas
+# Análisis de estrategia de asignación de tareas
 
 ## indice 
 

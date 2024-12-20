@@ -1,48 +1,5 @@
 # Análisis de eficiencia técnica por estrategia de asignación de tareas
-
-# Índice del Documento
-
-## [1. Introducción al problema](#introduccion-al-problema)
-   - [Contexto y desafío](#contexto-y-desafio)
-   - [Impacto del problema](#impacto-del-problema)
-
-## [2. Aspectos históricos del análisis de eficiencia técnica por estrategia de asignación de tareas](#aspectos-historicos-del-analisis)
-   - [1. Orígenes: Gestión de recursos en sistemas monolíticos](#origenes-gestion-de-recursos)
-   - [2. Sistemas multitarea y distribuidos](#sistemas-multitarea-y-distribuidos)
-   - [3. Desarrollo de modelos algorítmicos](#desarrollo-de-modelos)
-   - [4. Era de internet y computación distribuida global](#computacion-distribuida-global)
-   - [5. Computación en la nube y microservicios](#computacion-en-la-nube)
-   - [6. Inteligencia artificial y machine learning](#inteligencia-artificial-y-machine-learning)
-
-## [3. Análisis de eficiencia técnica por estrategia](#analisis-de-eficiencia-tecnica-por-estrategia)
-   - [1. Round Robin (asignación circular)](#round-robin)
-   - [2. Least Load (Menor carga)](#least-load)
-   - [3. Random Assignment (Asignación Aleatoria)](#random-assignment)
-   - [4. Priority-Based (Basado en Prioridades)](#priority-based)
-
-## [4. Comparativa de eficiencia](#comparativa-de-eficiencia)
-
-## [5. Escalabilidad y optimizaciones](#escalabilidad-y-optimizaciones)
-   - [Mejoras implementadas](#mejoras-implementadas)
-   - [Consideraciones futuras](#consideraciones-futuras)
-
-## [6. Resultados de ejecución](#resultados-de-ejecucion)
-   - [Ejecución con 100 tareas y 3 trabajadores](#ejecucion-con-100-tareas-y-3-trabajadores)
-   - [Ejecución con 100 tareas y 10 trabajadores](#ejecucion-con-100-tareas-y-10-trabajadores)
-   - [Ejecución con 1000 tareas y 100 trabajadores](#ejecucion-con-1000-tareas-y-100-trabajadores)
-
-## [7. Conclusiones](#conclusiones)
-
-## [8. Requisitos previos técnico](#requisitos-previos-tecnico)
-
-## [9. Estructura del proyecto](#estructura-del-proyecto)
-
-## [10. Scripts disponibles](#scripts-disponibles)
-
-## [11. Licencia](#licencia)
-
     
-
 ## 1. Introducción al problema
 
    ### Contexto y desafío

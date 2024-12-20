@@ -42,7 +42,7 @@
 11. [Licencia](#licencia)  
     
 
-## 1. Introducción al problema
+# 1. Introducción al problema
 
    ### Contexto y desafío
    

@@ -222,7 +222,7 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 |-------------------|----------------|--------------------|-----------------|---------------|-----------------------------|--------------------------|
 | Round Robin      | 100            | 100                | 7               | 100%          | 49.03                       | 538                      |
 | Carga Mínima     | 100            | 100                | 15              | 100%          | 49.03                       | 871                      |
-| Asignación Aleat. | 100            | 100                | 8               | 100%          | 49.03                       | 875                      |
+| Asignación Aleateorea | 100            | 100                | 8               | 100%          | 49.03                       | 875                      |
 
 ### Ejecución con 100 tareas y 10 trabajadores 
 
@@ -231,7 +231,7 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 |-------------------|----------------|--------------------|-----------------|---------------|-----------------------------|--------------------------|
 | Round Robin      | 100            | 100                | 8               | 100%          | 47.72                       | 320                      |
 | Carga Mínima     | 100            | 100                | 15              | 100%          | 47.72                       | 328                      |
-| Asignación Aleat. | 100            | 100                | 8               | 100%          | 47.72                       | 324                      |
+| Asignación Aleateorea | 100            | 100                | 8               | 100%          | 47.72                       | 324                      |
 
 ### Ejecución con 1000 tareas y 100 trabajadores 
 
@@ -241,8 +241,8 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 | Estrategia          | Tareas Totales | Tareas Completadas | Tareas Fallidas | Tiempo Promedio de Ejecución (ms) | Tiempo de Ejecución (ms) |
 |-------------------|-------------|-------------------|--------------|--------------------------|-----------------------|
 | Round Robin       | 1000        | 1000              | 110          | 49.921                   | 331                   |
-| Least Load        | 1000        | 1000              | 116          | 49.921                   | 544                   |
-| Random Assignment | 1000        | 1000              | 107          | 49.921                   | 546                   |
+| Carga Mínima      | 1000        | 1000              | 116          | 49.921                   | 544                   |
+| Asignación Aleateorea | 1000        | 1000              | 107          | 49.921                   | 546                   |
 
 ## 7. Conclusiones:
 

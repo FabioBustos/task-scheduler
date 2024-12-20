@@ -61,7 +61,7 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 
 *   **Asignación de tarea:** O(w) donde *w* es el número de trabajadores
 *   **Actualización de estado:** O(1)
-*   **Selección de worker:** O(w log w) con ordenamiento (se podría optimizar a O(w) con una estructura de datos adecuada como un heap o una lista ordenada)
+*   **Selección de trebajador:** O(w log w) con ordenamiento (se podría optimizar a O(w) con una estructura de datos adecuada como un heap o una lista ordenada)
 
 #### Complejidad espacial
 
@@ -77,7 +77,7 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
     *   Balance óptimo entre gastos administrativos y beneficios
     *   Mejor distribución que Round Robin
 *   **Escala Grande**
-    *   Gastos administrativos significativo en selección de worker
+    *   Gastos administrativos significativo en selección de trebajador
     *   Requiere optimizaciones adicionales (como almacenamiento en caché de estados)
 
 ### 3. Random Assignment (Asignación Aleatoria)
@@ -85,7 +85,7 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 #### Complejidad temporal
 
 *   **Asignación de tarea:** O(1)
-*   **Selección de worker:** O(1)
+*   **Selección de trebajador:** O(1)
 *   **Mantenimiento:** O(1)
 
 #### Complejidad espacial

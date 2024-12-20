@@ -55,7 +55,7 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
     *   Puede generar desbalances significativos
     *   No considera eficientemente la carga real
 
-### 2. Least Load (Menor Carga)
+### 2. Least Load (Menor carga)
 
 #### Complejidad temporal
 

@@ -25,6 +25,52 @@ Las implicaciones de una mala solución pueden ser significativas:
 *   Fallos en cascada
 *   Reintentos en casos de fallos
 
+# Aspectos Históricos del Análisis de Eficiencia Técnica por Estrategia de Asignación de Tareas
+El análisis de eficiencia técnica por estrategia de asignación de tareas tiene sus raíces en la necesidad de optimizar la asignación de recursos en sistemas computacionales y distribuidos. Este campo ha evolucionado significativamente con el avance de las tecnologías, y su historia puede rastrearse a través de varias etapas clave:
+
+## 1. Orígenes: Gestión de Recursos en Sistemas Monolíticos (Década de 1960-1970)
+
+- **Sistemas monolíticos:** Los primeros sistemas computacionales, como el IBM System/360, se enfocaban en optimizar el uso de recursos limitados, como el tiempo de CPU y la memoria.
+- **Algoritmos básicos:** Se introdujeron algoritmos de planificación simples, como **First Come, First Serve (FCFS)**, **Round Robin**, y **Shortest Job Next**, para distribuir el tiempo de CPU entre procesos.
+- **Objetivo inicial:** Reducir el tiempo de respuesta de las tareas y mejorar la utilización de los recursos dentro de una máquina centralizada.
+
+## 2. Sistemas Multitarea y Distribuidos (Década de 1980)
+
+- **Aparición de sistemas distribuidos:** La capacidad de conectar varias máquinas mediante redes (como Ethernet) introdujo nuevos desafíos para asignar tareas entre múltiples nodos.
+- **Estrategias primitivas de distribución:**
+  - Se comenzaron a utilizar variantes de **Round Robin** para distribuir cargas en sistemas distribuidos.
+  - Algoritmos basados en **colas priorizadas** surgieron para manejar tareas críticas.
+- **Enfoque en eficiencia:** Los investigadores comenzaron a analizar el impacto de las estrategias de asignación en la eficiencia y en la capacidad de respuesta de sistemas multitarea.
+
+## 3. Desarrollo de Modelos Algorítmicos (Década de 1990)
+
+- **Tareas heterogéneas:** La aparición de aplicaciones con diferentes necesidades de recursos (CPU intensivas vs. I/O intensivas) motivó el desarrollo de algoritmos como **Least Load** y variantes optimizadas.
+- **Introducción del análisis teórico:**
+  - Se formalizó el estudio de **complejidades temporales y espaciales** de los algoritmos de asignación.
+  - Investigadores como **Michael Garey** y **David Johnson** desarrollaron modelos teóricos relacionados con problemas **NP-completos**, aplicables a la asignación de tareas.
+- **Sistemas distribuidos comerciales:** Las empresas comenzaron a implementar técnicas de asignación en sistemas como **clústeres de servidores**.
+
+## 4. Era de Internet y Computación Distribuida Global (Década de 2000)
+
+- **Auge de aplicaciones web:** La explosión del tráfico en Internet impulsó el desarrollo de sistemas más complejos para manejar tareas distribuidas.
+- **Implementaciones prácticas:**
+  - Se introdujeron variantes algorítmicas específicas, como el **hashing consistente**, para manejar millones de solicitudes de usuarios.
+  - Algoritmos basados en **estadísticas** comenzaron a ser utilizados para predecir patrones de carga.
+- **Enfoque en escalabilidad:** La necesidad de manejar un crecimiento exponencial en la cantidad de tareas y recursos llevó a la evaluación de estrategias para entornos grandes y dinámicos.
+
+## 5. Computación en la Nube y Microservicios (Década de 2010)
+
+- **Asignación dinámica:** Con la computación en la nube, surgieron estrategias adaptativas para asignar tareas basadas en la carga en tiempo real.
+- **Entornos heterogéneos:** Los sistemas ahora incluyen **contenedores** y **microservicios**, que requieren estrategias de asignación más complejas.
+- **Herramientas modernas:** **Kubernetes** y otros orquestadores introdujeron mecanismos como el balanceo de carga automático basado en estrategias como **Round Robin** y **Least Load**.
+- **Análisis automatizado:** Se comenzaron a usar simulaciones y técnicas basadas en **inteligencia artificial** para evaluar la eficiencia técnica de diferentes estrategias.
+
+## 6. Inteligencia Artificial y Machine Learning (Década de 2020)
+
+- **Análisis predictivo:** Los algoritmos de **aprendizaje automático** comenzaron a utilizarse para evaluar y seleccionar dinámicamente estrategias de asignación según las condiciones del sistema.
+- **Optimización continua:** Los sistemas modernos ahora ajustan las estrategias de asignación en tiempo real basándose en métricas como el rendimiento y la disponibilidad de recursos.
+- **Eficiencia energética:** Además de la eficiencia técnica, se incorporaron objetivos relacionados con el **ahorro energético** y la sostenibilidad en las estrategias de asignación.
+
 ## Análisis de eficiencia técnica por estrategia
 
 Para resolver el problema de asignación de tareas hay varias perpectivas las cuales podemos ver a continuación:
@@ -164,7 +210,7 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
    - Predicción de carga
    - Agrupación de tareas similares
 
-## resultados de ejecución 
+## Resultados de ejecución 
 ### Para tomar una decisión de que modelo tomar se realiza la implementacion de tres modelos.
 ### se realizaron pruebas con las mismas consideraciones de ambiente de ejecución para todos los modelos.
 

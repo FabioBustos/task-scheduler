@@ -1,48 +1,49 @@
 # Análisis de eficiencia técnica por estrategia de asignación de tareas
 
-## Índice
+# Índice del Documento
 
-1. [Introducción al problema](#introducción-al-problema)  
-   1.1. [Contexto y desafío](#contexto-y-desafío)  
-   1.2. [Impacto del problema](#impacto-del-problema)  
+## [1. Introducción al problema](#introduccion-al-problema)
+   - [Contexto y desafío](#contexto-y-desafio)
+   - [Impacto del problema](#impacto-del-problema)
 
-2. [Aspectos históricos del análisis de eficiencia técnica por estrategia de asignación de tareas](#aspectos-históricos-del-análisis-de-eficiencia-técnica-por-estrategia-de-asignación-de-tareas)  
-   2.1. [Orígenes: Gestión de recursos en sistemas monolíticos](#orígenes-gestión-de-recursos-en-sistemas-monolíticos-década-de-1960-1970)  
-   2.2. [Sistemas multitarea y distribuidos](#sistemas-multitarea-y-distribuidos-década-de-1980)  
-   2.3. [Desarrollo de modelos algorítmicos](#desarrollo-de-modelos-algorítmicos-década-de-1990)  
-   2.4. [Era de internet y computación distribuida global](#era-de-internet-y-computación-distribuida-global-década-de-2000)  
-   2.5. [Computación en la nube y microservicios](#computación-en-la-nube-y-microservicios-década-de-2010)  
-   2.6. [Inteligencia artificial y machine learning](#inteligencia-artificial-y-machine-learning-década-de-2020)  
+## [2. Aspectos históricos del análisis de eficiencia técnica por estrategia de asignación de tareas](#aspectos-historicos-del-analisis)
+   - [1. Orígenes: Gestión de recursos en sistemas monolíticos](#origenes-gestion-de-recursos)
+   - [2. Sistemas multitarea y distribuidos](#sistemas-multitarea-y-distribuidos)
+   - [3. Desarrollo de modelos algorítmicos](#desarrollo-de-modelos)
+   - [4. Era de internet y computación distribuida global](#computacion-distribuida-global)
+   - [5. Computación en la nube y microservicios](#computacion-en-la-nube)
+   - [6. Inteligencia artificial y machine learning](#inteligencia-artificial-y-machine-learning)
 
-3. [Análisis de eficiencia técnica por estrategia](#análisis-de-eficiencia-técnica-por-estrategia)  
-   3.1. [Round Robin (asignación circular)](#1-round-robin-asignación-circular)  
-   3.2. [Least Load (Menor carga)](#2-least-load-menor-carga)  
-   3.3. [Random Assignment (Asignación Aleatoria)](#3-random-assignment-asignación-aleatoria)  
-   3.4. [Priority-Based (Basado en Prioridades)](#4-priority-based-basado-en-prioridades)  
+## [3. Análisis de eficiencia técnica por estrategia](#analisis-de-eficiencia-tecnica-por-estrategia)
+   - [1. Round Robin (asignación circular)](#round-robin)
+   - [2. Least Load (Menor carga)](#least-load)
+   - [3. Random Assignment (Asignación Aleatoria)](#random-assignment)
+   - [4. Priority-Based (Basado en Prioridades)](#priority-based)
 
-4. [Comparativa de eficiencia](#comparativa-de-eficiencia)  
+## [4. Comparativa de eficiencia](#comparativa-de-eficiencia)
 
-5. [Escalabilidad y optimizaciones](#escalabilidad-y-optimizaciones)  
-   5.1. [Mejoras implementadas](#mejoras-implementadas)  
-   5.2. [Consideraciones futuras](#consideraciones-futuras)  
+## [5. Escalabilidad y optimizaciones](#escalabilidad-y-optimizaciones)
+   - [Mejoras implementadas](#mejoras-implementadas)
+   - [Consideraciones futuras](#consideraciones-futuras)
 
-6. [Resultados de ejecución](#resultados-de-ejecución)  
-   6.1. [Ejecución con 100 tareas y 3 trabajadores](#ejecución-con-100-tareas-y-3-trabajadores)  
-   6.2. [Ejecución con 100 tareas y 10 trabajadores](#ejecución-con-100-tareas-y-10-trabajadores)  
-   6.3. [Ejecución con 1000 tareas y 100 trabajadores](#ejecución-con-1000-tareas-y-100-trabajadores)  
+## [6. Resultados de ejecución](#resultados-de-ejecucion)
+   - [Ejecución con 100 tareas y 3 trabajadores](#ejecucion-con-100-tareas-y-3-trabajadores)
+   - [Ejecución con 100 tareas y 10 trabajadores](#ejecucion-con-100-tareas-y-10-trabajadores)
+   - [Ejecución con 1000 tareas y 100 trabajadores](#ejecucion-con-1000-tareas-y-100-trabajadores)
 
-7. [Conclusiones](#conclusiones)  
+## [7. Conclusiones](#conclusiones)
 
-8. [Requisitos previos técnicos](#requisitos-previos-técnicos)  
+## [8. Requisitos previos técnico](#requisitos-previos-tecnico)
 
-9. [Estructura del proyecto](#estructura-del-proyecto)  
+## [9. Estructura del proyecto](#estructura-del-proyecto)
 
-10. [Scripts disponibles](#scripts-disponibles)  
+## [10. Scripts disponibles](#scripts-disponibles)
 
-11. [Licencia](#licencia)  
+## [11. Licencia](#licencia)
+
     
 
-# 1. Introducción al problema
+## 1. Introducción al problema
 
    ### Contexto y desafío
    

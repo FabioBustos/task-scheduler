@@ -27,7 +27,7 @@ Las implicaciones de una mala solución pueden ser significativas:
 
 ## Análisis de eficiencia técnica por estrategia
 
-Para resolver el problema de asignación de tares hay varias perpectivas las cuales podemos ver a continuación:
+Para resolver el problema de asignación de tareas hay varias perpectivas las cuales podemos ver a continuación:
 
 ### 1. Round Robin (asignación circular)
 
@@ -165,8 +165,8 @@ Para resolver el problema de asignación de tares hay varias perpectivas las cua
    - Agrupación de tareas similares
 
 ## resultados de ejecución 
-### Para tomar una decición de que modelo tomar se realiza la implementacion de tres modelos.
-### se realizaron pruebas con las mismas concideraciones de ambiente de ejecución para todos los modelos.
+### Para tomar una decisión de que modelo tomar se realiza la implementacion de tres modelos.
+### se realizaron pruebas con las mismas consideraciones de ambiente de ejecución para todos los modelos.
 
 
 ### Ejecución con 100 tareas y 3 trabajadores 
@@ -200,7 +200,7 @@ Para resolver el problema de asignación de tares hay varias perpectivas las cua
 
 ## Conclusiones:
 
-*   El factor de fallos puede afectar en los tiempos de ejecución dado que no son contantes.
+*   El factor de fallos puede afectar en los tiempos de ejecución dado que no son constantes.
 *   Round Robin escala de manera excelente. Su tiempo de ejecución se mantiene muy bajo en comparación con las otras estrategias, incluso al aumentar el número de tareas y trabajadores. Esto lo convierte en la opción preferida en todos los casos probados. Ademas podemos observar que Round Robin mantiene una carga de trabajadores pareja.
 *   Least Load no escala bien y tiene una sobrecarga significativa. Su rendimiento empeora en comparación con Round Robin a medida que aumenta el número de tareas, lo que sugiere que el algoritmo de cálculo y gestión de la "carga" introduce una sobrecarga considerable. Los datos con 100 tareas y 10 trabajadores son especialmente reveladores, mostrando una gran diferencia de tiempo de ejecución en contra de Least Load.
 *   Asignación Aleatoria ofrece un buen compromiso entre simplicidad y rendimiento. Si bien no es tan rápido como Round Robin, su rendimiento es aceptable y su implementación es mucho más sencilla que Least Load. Sin embargo, Round Robin lo supera en todos los aspectos.

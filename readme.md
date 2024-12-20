@@ -46,7 +46,7 @@ Para resolver el problema de asignación de tares hay varias perpectivas las cua
 
 *   **Escala Pequeña** (< 100 tareas, < 10 trabajadores)
     *   Muy eficiente
-    *   Overhead mínimo
+    *   Gastos administrativos mínimo
     *   Fácil de depurar
 *   **Escala Media** (100-1000 tareas, 10-50 trabajadores)
     *   Rendimiento aceptable
@@ -71,13 +71,13 @@ Para resolver el problema de asignación de tares hay varias perpectivas las cua
 #### Eficiencia para diferentes escalas
 
 *   **Escala Pequeña**
-    *   Overhead puede superar beneficios
+    *   Gastos administrativos puede superar beneficios
     *   Excelente distribución de carga
 *   **Escala Media**
-    *   Balance óptimo entre overhead y beneficios
+    *   Balance óptimo entre gastos administrativos y beneficios
     *   Mejor distribución que Round Robin
 *   **Escala Grande**
-    *   Overhead significativo en selección de worker
+    *   Gastos administrativos significativo en selección de worker
     *   Requiere optimizaciones adicionales (como caching de estados)
 
 ### 3. Random Assignment (Asignación Aleatoria)
@@ -103,7 +103,7 @@ Para resolver el problema de asignación de tares hay varias perpectivas las cua
     *   Distribución estadísticamente más uniforme
 *   **Escala grande**
     *   Distribución cercana a uniforme
-    *   Buen rendimiento sin overhead
+    *   Buen rendimiento sin gastos administrativos
 
 ### 4. Priority-Based (Basado en Prioridades)
 
@@ -122,10 +122,10 @@ Para resolver el problema de asignación de tares hay varias perpectivas las cua
 #### Eficiencia para diferentes escalas
 
 *   **Escala pequeña**
-    *   Overhead notable en mantenimiento de estructura
+    *   Gastos administrativos notable en mantenimiento de estructura
     *   Beneficios pueden no justificar la complejidad
 *   **Escala media**
-    *   Balance óptimo entre overhead y beneficios
+    *   Balance óptimo entre Gastos administrativos y beneficios
     *   Excelente para cargas mixtas
 *   **Escala grande**
     *   Escalabilidad limitada por operaciones de cola 
@@ -137,7 +137,7 @@ Para resolver el problema de asignación de tares hay varias perpectivas las cua
 | ------------- | --------------------------- | -------------------------------------------- | ------------- |
 | Round Robin   | Simple, O(1) asignación       | No considera carga real                       | Pequeña-Media |
 | Least Load    | Mejor distribución           | O(w) selección (mejorable a O(w) con heap)    | Media         |
-| Random        | Mínimo overhead              | Distribución impredecible en escalas pequeñas | Grande        |
+| Random        | Mínimo Gastos administrativos| Distribución impredecible en escalas pequeñas | Grande        |
 | Priority-Based | Control preciso de prioridades | O(log n) operaciones en la cola de prioridades | Media         |
 
 ## Escalabilidad y optimizaciones

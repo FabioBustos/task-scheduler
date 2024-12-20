@@ -129,11 +129,11 @@ El análisis de eficiencia técnica por estrategia de asignación de tareas tien
    
    - **Análisis predictivo:** Los algoritmos de **aprendizaje automático** comenzaron a utilizarse para evaluar y seleccionar dinámicamente estrategias de asignación según las condiciones del sistema.
    - **Optimización continua:** Los sistemas modernos ahora ajustan las estrategias de asignación en tiempo real basándose en métricas como el rendimiento y la disponibilidad de recursos.
-   - **Eficiencia energética:** Además de la eficiencia técnica, se incorporaron objetivos relacionados con el **ahorro energético** y la sostenibilidad en las estrategias de asignación.
+   - **Eficiencia energética:** Además, de la eficiencia técnica se incorporaron objetivos relacionados con el **ahorro energético** y la sostenibilidad en las estrategias de asignación.
 
 ## 3. Análisis de estrategia de asignación de tareas
 
-Para resolver el problema de asignación de tareas hay varias perpectivas las cuales podemos ver a continuación:
+Para resolver el problema de asignación de tareas hay varias perspectiva las cuales podemos ver a continuación:
 
 ### 1. Round Robin (asignación circular)
 
@@ -309,9 +309,9 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 ## 7. Conclusiones:
 
 *   El factor de fallos puede afectar en los tiempos de ejecución dado que no son constantes.
-*   Round Robin escala de manera excelente. Su tiempo de ejecución se mantiene muy bajo en comparación con las otras estrategias, incluso al aumentar el número de tareas y trabajadores. Esto lo convierte en la opción preferida en todos los casos probados. Además podemos observar que Round Robin mantiene una carga de trabajadores pareja.
-*   Least Load no escala bien y tiene una sobrecarga significativa. Su rendimiento empeora en comparación con Round Robin a medida que aumenta el número de tareas, lo que sugiere que el algoritmo de cálculo y gestión de la "carga" introduce una sobrecarga considerable. Los datos con 100 tareas y 10 trabajadores son especialmente reveladores, mostrando una gran diferencia de tiempo de ejecución en contra de Least Load.
-*   Asignación Aleatoria ofrece un buen compromiso entre simplicidad y rendimiento. Si bien no es tan rápido como Round Robin, su rendimiento es aceptable y su implementación es mucho más sencilla que Least Load. Sin embargo, Round Robin lo supera en todos los aspectos.
+*   Round Robin: podemos concluir que, escala de manera excelente. Su tiempo de ejecución se mantiene muy bajo en comparación con las otras estrategias, incluso al aumentar el número de tareas y trabajadores. Esto lo convierte en la opción preferida en todos los casos probados. Además, podemos observar que Round Robin mantiene una carga de trabajadores pareja.
+*   Least Load: arrojó que, no escala bien y tiene una sobrecarga significativa. Su rendimiento empeora en comparación con Round Robin a medida que aumenta el número de tareas, lo que sugiere que el algoritmo de cálculo y gestión de la "carga" introduce una sobrecarga considerable. Los datos con 100 tareas y 10 trabajadores son especialmente reveladores, mostrando una gran diferencia de tiempo de ejecución en contra de Least Load.
+*   Asignación Aleatoria: ofrece un buen compromiso entre simplicidad y rendimiento. Si bien no es tan rápido como Round Robin, su rendimiento es aceptable y su implementación es mucho más sencilla que Least Load. Sin embargo, Round Robin lo supera en todos los aspectos.
 *   Con 100 tareas y 10 trabajadores, Round Robin muestra una mejora significativa en el tiempo de ejecución. Esto podría indicar que Round Robin se beneficia especialmente de una proporción de tareas/trabajadores más baja.
 
 **Recomendaciones:**

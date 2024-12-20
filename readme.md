@@ -236,8 +236,6 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 ### Ejecución con 1000 tareas y 100 trabajadores 
 
 
-
-| Estrategia          | Tareas Totales | Tareas Completadas | Tareas Fallidas | Tiempo Promedio de Ejecución (ms) | Tiempo de Ejecución (ms) | Observaciones                                                                                                                                                                                                                                                                                                                      |
 | Estrategia          | Tareas Totales | Tareas Completadas | Tareas Fallidas | Tiempo Promedio de Ejecución (ms) | Tiempo de Ejecución (ms) |
 |-------------------|-------------|-------------------|--------------|--------------------------|-----------------------|
 | Round Robin       | 1000        | 1000              | 110          | 49.921                   | 331                   |

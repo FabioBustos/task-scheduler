@@ -275,9 +275,7 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 
 
 ## 6. Resultados de ejecución 
-### Para tomar una decisión de que modelo tomar se realiza la implementacion de tres modelos.
-### se realizaron pruebas con las mismas consideraciones de ambiente de ejecución para todos los modelos.
-
+### Para tomar una decisión sobre qué estrategia utilizar, se implementaron tres modelos diferentes. Las pruebas se llevaron a cabo bajo las mismas condiciones de entorno de ejecución para todos los modelos, asegurando una comparación justa y consistente de su desempeño. 
 
 ### Ejecución con 100 tareas y 3 trabajadores 
 

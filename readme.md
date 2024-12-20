@@ -44,14 +44,14 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 
 #### Eficiencia para diferentes escalas
 
-*   **Escala Pequeña** (< 100 tareas, < 10 trabajadores)
+*   **Escala pequeña** (< 100 tareas, < 10 trabajadores)
     *   Muy eficiente
     *   Gastos administrativos mínimo
     *   Fácil de depurar
-*   **Escala Media** (100-1000 tareas, 10-50 trabajadores)
+*   **Escala media** (100-1000 tareas, 10-50 trabajadores)
     *   Rendimiento aceptable
     *   Puede generar desbalances temporales
-*   **Escala Grande** (> 1000 tareas, > 50 trabajadores)
+*   **Escala grande** (> 1000 tareas, > 50 trabajadores)
     *   Puede generar desbalances significativos
     *   No considera eficientemente la carga real
 

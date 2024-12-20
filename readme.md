@@ -1,8 +1,8 @@
-# Análisis de Eficiencia Técnica por Estrategia de Asignación de Tareas
+# Análisis de eficiencia técnica por estrategia de asignación de tareas
 
-## Introducción al Problema
+## Introducción al problema
 
-### Contexto y Desafío
+### Contexto y desafío
 
 En el mundo del desarrollo de software y sistemas distribuidos, uno de los desafíos más frecuentes es la distribución eficiente de tareas entre recursos limitados. Este documento describe una solución para el problema de asignar un conjunto de tareas a un número limitado de workers, optimizando el rendimiento total (throughput). Las tareas se caracterizan por un ID, costo (ms), prioridad (alta, media, baja) y tipo (CPU o IO). Los workers tienen una capacidad limitada de ejecución simultánea. La solución considera el manejo de fallos, reintentos y un mecanismo de caché para mejorar la eficiencia. Esta versión implementa la solución en TypeScript. Este problema se vuelve especialmente complejo cuando consideramos variables como:
 
@@ -14,7 +14,7 @@ En el mundo del desarrollo de software y sistemas distribuidos, uno de los desaf
 
 El sistema debe manejar estas variables mientras mantiene un alto rendimiento y una utilización eficiente de recursos. Es un ejemplo clásico del problema de asignación de recursos en sistemas distribuidos, pero con características específicas que lo hacen único.
 
-### Impacto del Problema
+### Impacto del problema
 
 Las implicaciones de una mala solución pueden ser significativas:
 
@@ -25,24 +25,24 @@ Las implicaciones de una mala solución pueden ser significativas:
 *   Fallos en cascada
 *   Reintentos en casos de fallos
 
-## Análisis de Eficiencia Técnica por Estrategia
+## Análisis de eficiencia técnica por estrategia
 
-Para resolver el problema de asignacio de tares hay varias perpectivas las cuales podemos ver acontinuacion:
+Para resolver el problema de asignación de tares hay varias perpectivas las cuales podemos ver acontinuacion:
 
 ### 1. Round Robin (Asignación Circular)
 
-#### Complejidad Temporal
+#### Complejidad temporal
 
 *   **Asignación de tarea:** O(1)
 *   **Ciclo completo:** O(n) donde *n* es el número de workers
 *   **Mantenimiento del estado:** O(1)
 
-#### Complejidad Espacial
+#### Complejidad espacial
 
 *   **Estado del sistema:** O(w) donde *w* es el número de workers
 *   **Cola de tareas:** O(t) donde *t* es el número de tareas pendientes
 
-#### Eficiencia para Diferentes Escalas
+#### Eficiencia para diferentes escalas
 
 *   **Escala Pequeña** (< 100 tareas, < 10 workers)
     *   Muy eficiente
@@ -57,18 +57,18 @@ Para resolver el problema de asignacio de tares hay varias perpectivas las cuale
 
 ### 2. Least Load (Menor Carga)
 
-#### Complejidad Temporal
+#### Complejidad temporal
 
 *   **Asignación de tarea:** O(w) donde *w* es el número de workers
 *   **Actualización de estado:** O(1)
 *   **Selección de worker:** O(w log w) con ordenamiento (se podría optimizar a O(w) con una estructura de datos adecuada como un heap o una lista ordenada)
 
-#### Complejidad Espacial
+#### Complejidad espacial
 
 *   **Estado del sistema:** O(w)
 *   **Estructuras de seguimiento:** O(w + t)
 
-#### Eficiencia para Diferentes Escalas
+#### Eficiencia para diferentes escalas
 
 *   **Escala Pequeña**
     *   Overhead puede superar beneficios
@@ -82,56 +82,56 @@ Para resolver el problema de asignacio de tares hay varias perpectivas las cuale
 
 ### 3. Random Assignment (Asignación Aleatoria)
 
-#### Complejidad Temporal
+#### Complejidad temporal
 
 *   **Asignación de tarea:** O(1)
 *   **Selección de worker:** O(1)
 *   **Mantenimiento:** O(1)
 
-#### Complejidad Espacial
+#### Complejidad espacial
 
 *   **Estado base:** O(w)
 *   **Sin estructuras adicionales:** O(1)
 
-#### Eficiencia para Diferentes Escalas
+#### Eficiencia para diferentes escalas
 
-*   **Escala Pequeña**
+*   **Escala pequeña**
     *   Alta variabilidad en resultados
     *   Puede generar distribuciones muy desiguales
-*   **Escala Media**
+*   **Escala media**
     *   Resultados más predecibles
     *   Distribución estadísticamente más uniforme
-*   **Escala Grande**
+*   **Escala grande**
     *   Distribución cercana a uniforme
     *   Buen rendimiento sin overhead
 
 ### 4. Priority-Based (Basado en Prioridades)
 
-#### Complejidad Temporal
+#### Complejidad temporal
 
 *   **Inserción:** O(log n) con cola de prioridad (donde n es el número de tareas en la cola)
 *   **Extracción:** O(log n)
 *   **Actualización de prioridades:** O(log n)
 
-#### Complejidad Espacial
+#### Complejidad espacial
 
 *   **Cola de prioridad:** O(t)
 *   **Estado de workers:** O(w)
 *   **Estructuras de tracking:** O(w + t)
 
-#### Eficiencia para Diferentes Escalas
+#### Eficiencia para diferentes escalas
 
-*   **Escala Pequeña**
+*   **Escala pequeña**
     *   Overhead notable en mantenimiento de estructura
     *   Beneficios pueden no justificar la complejidad
-*   **Escala Media**
+*   **Escala media**
     *   Balance óptimo entre overhead y beneficios
     *   Excelente para cargas mixtas
-*   **Escala Grande**
+*   **Escala grande**
     *   Escalabilidad limitada por operaciones de cola (se podría considerar un heap binario para optimizar)
     *   Requiere optimizaciones adicionales
 
-## Comparativa de Eficiencia
+## Comparativa de eficiencia
 
 | Estrategia    | Ventajas                     | Desventajas                                  | Mejor Escala |
 | ------------- | --------------------------- | -------------------------------------------- | ------------- |
@@ -140,36 +140,36 @@ Para resolver el problema de asignacio de tares hay varias perpectivas las cuale
 | Random        | Mínimo overhead              | Distribución impredecible en escalas pequeñas | Grande        |
 | Priority-Based | Control preciso de prioridades | O(log n) operaciones en la cola de prioridades | Media         |
 
-## Escalabilidad y Optimizaciones
+## Escalabilidad y optimizaciones
 
-### Mejoras Implementadas
-1. **Sistema de Reintentos**
+### Mejoras implementadas
+1. **Sistema de reintentos**
    - Máximo 3 intentos por tarea
    - Backoff exponencial entre intentos
 
-2. **Optimización de Caché**
+2. **Optimización de caché**
    - Almacenamiento de patrones comunes
    - Reducción de costos en tareas similares
 
-3. **Balance de Carga**
+3. **Balance de carga**
    - Monitoreo continuo de capacidad
    - Redistribución dinámica
 
-### Consideraciones Futuras
+### Consideraciones futuras
 1. **Escalado Horizontal**
    - Adición dinámica de workers
    - Distribución geográfica
 
-2. **Optimizaciones de Rendimiento**
+2. **Optimizaciones de rendimiento**
    - Predicción de carga
    - Agrupación de tareas similares
 
 ## resultados de ejecución 
-### Para Tomar una decición de que modelo tomar se realiza la implementacion de tres modelos.
-### se realizaron pruebas con las mismas concideraciones de ambiente de ejecucion para todos los modelos
+### Para tomar una decición de que modelo tomar se realiza la implementacion de tres modelos.
+### se realizaron pruebas con las mismas concideraciones de ambiente de ejecución para todos los modelos
 
 
-### ejecución con 100 tasks y 3 workers 
+### Ejecución con 100 tasks y 3 workers 
 
 
 | Estrategia        | Tareas Totales | Tareas Completadas | Tareas Fallidas | Tasa de Éxito | Tiempo Promedio de Ejecución | Tiempo de Ejecución (ms) |
@@ -178,7 +178,7 @@ Para resolver el problema de asignacio de tares hay varias perpectivas las cuale
 | Carga Mínima     | 100            | 100                | 15              | 100%          | 49.03                       | 871                      |
 | Asignación Aleat. | 100            | 100                | 8               | 100%          | 49.03                       | 875                      |
 
-### ejecución con 100 tasks y 10 workers 
+### Ejecución con 100 tasks y 10 workers 
 
 
 | Estrategia        | Tareas Totales | Tareas Completadas | Tareas Fallidas | Tasa de Éxito | Tiempo Promedio de Ejecución | Tiempo de Ejecución (ms) |
@@ -187,7 +187,7 @@ Para resolver el problema de asignacio de tares hay varias perpectivas las cuale
 | Carga Mínima     | 100            | 100                | 15              | 100%          | 47.72                       | 328                      |
 | Asignación Aleat. | 100            | 100                | 8               | 100%          | 47.72                       | 324                      |
 
-### ejecución con 1000 tasks y 100 workers 
+### Ejecución con 1000 tasks y 100 workers 
 
 
 
@@ -216,12 +216,12 @@ Para resolver el problema de asignacio de tares hay varias perpectivas las cuale
 
 
 
-## Requisitos Previos tecnicos 
+## Requisitos previos técnico 
 - Node.js 20+
 - npm 10.8+
 - TypeScript
   
-## Estructura del Proyecto
+## Estructura del proyecto
 ```
 /
 ├── src/
@@ -268,7 +268,7 @@ Para resolver el problema de asignacio de tares hay varias perpectivas las cuale
 ├── tsconfig.build.json
 └── tsconfig.json
 ```
-## Scripts Disponibles
+## Scripts disponibles
 
 ```bash
 npm start           # Ejecuta la aplicación

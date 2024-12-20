@@ -14,7 +14,7 @@
    - [Computación en la nube (2010)](#5-computación-en-la-nube-y-microservicios-década-de-2010)
    - [IA y Machine Learning (2020)](#6-inteligencia-artificial-y-machine-learning-década-de-2020)
 
-3. [Análisis de eficiencia técnica por estrategia](#3-análisis-de-eficiencia-técnica-por-estrategia)
+3. [Análisis de estrategia de asignación de tareas](#3-análisis-de-eficiencia-técnica-por-estrategia)
    - [Round Robin](#1-round-robin-asignación-circular)
      - [Complejidad temporal](#complejidad-temporal)
      - [Complejidad espacial](#complejidad-espacial)
@@ -85,7 +85,7 @@
 
 
 
-## 2. Aspectos históricos del análisis de eficiencia técnica por estrategia de asignación de tareas
+## 2. Aspectos históricos 
 El análisis de eficiencia técnica por estrategia de asignación de tareas tiene sus raíces en la necesidad de optimizar la asignación de recursos en sistemas computacionales y distribuidos. Este campo ha evolucionado significativamente con el avance de las tecnologías, y su historia puede rastrearse a través de varias etapas clave:
 
    ### 1. Orígenes: Gestión de recursos en sistemas monolíticos (Década de 1960-1970)
@@ -131,7 +131,7 @@ El análisis de eficiencia técnica por estrategia de asignación de tareas tien
    - **Optimización continua:** Los sistemas modernos ahora ajustan las estrategias de asignación en tiempo real basándose en métricas como el rendimiento y la disponibilidad de recursos.
    - **Eficiencia energética:** Además de la eficiencia técnica, se incorporaron objetivos relacionados con el **ahorro energético** y la sostenibilidad en las estrategias de asignación.
 
-## 3. Análisis de eficiencia técnica por estrategia
+## 3. Análisis de estrategia de asignación de tareas
 
 Para resolver el problema de asignación de tareas hay varias perpectivas las cuales podemos ver a continuación:
 

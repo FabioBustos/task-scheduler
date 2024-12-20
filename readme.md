@@ -337,8 +337,6 @@ Para resolver el problema de asignación de tareas hay varias perpectivas las cu
 ```
 /
 ├── src/
-│   ├── interfaces/
-│   │   └── scheduler.interfaces.ts
 │   ├── models/
 │   │   ├── task.model.ts
 │   │   └── worker.model.ts
